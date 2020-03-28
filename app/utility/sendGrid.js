@@ -3,7 +3,6 @@ const sendGrid = require('@sendgrid/mail');
 const config = require('../config/development.json');
 
 const sendWelcomeMail = async (user) => {
-    console.log(user);
     sendGrid.setApiKey(config.sendGrid.apiKey);
     const msg = {
         to: user.email,
