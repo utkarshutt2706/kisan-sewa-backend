@@ -1,5 +1,9 @@
 const boothService = require('./boothService');
 
-module.exports = {
+const registerBooth = (req, resp, next) => {
+    
+};
 
+module.exports = {
+    registerBooth
 };
