@@ -10,6 +10,7 @@ const config = require('./config/development.json');
 
 const authRoute = require('./auth/authRoute');
 const boothRoute = require('./booth/boothRoute');
+const newsletter = require('./newsletter/newsletterController');
 
 // const jwt = require('./utility/jwt');
 
@@ -26,6 +27,7 @@ app.use('/static', express.static('public'));
 
 app.use('/auth', authRoute);
 app.use('/booth', boothRoute);
+app.post('/newsletter', newsletter.newsLetter);
 
 // global error handler
 app.use(errorHandler);
