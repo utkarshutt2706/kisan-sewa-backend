@@ -5,7 +5,7 @@ const date = require('./date');
 const config = require('../config/development.json');
 
 const dbConfig = config.dbConfig;
-const mongoURI = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.dbName}`;
+const mongoURI =  `mongodb+srv://${dbConfig.host}:${dbConfig.password}@${dbConfig.dbName}-aeb6j.mongodb.net/${dbConfig.dbName}?retryWrites=true&w=majority`;
 
 const dbOptions = {
     useUnifiedTopology: true,
@@ -13,12 +13,12 @@ const dbOptions = {
     useCreateIndex: true
 }
 
-const createConnection = () => {
-    mongoose.connect(mongoURI, dbOptions)
+const createConnection = async () => {
+    await mongoose.connect(mongoURI, dbOptions)
         .then(() => {
             logger.info(`${date()}: Connection to DB established at URI: ${mongoURI}`);
         })
-        .catch(() => {
+        .catch((error) => {
             logger.error(`${date()}: Connection to DB failed`);
         });
 }

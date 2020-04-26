@@ -32,8 +32,14 @@ app.post('/newsletter', newsletter.newsLetter);
 // global error handler
 app.use(errorHandler);
 
+app.use(express.static('public'));
+
+app.get('*', (req, resp) => {
+    resp.sendFile('../public/index.html')
+})
+
 // port number
-const port = config.port;
+const port = process.env.port || config.port;
 
 app.listen(port, () => {
     logger.info(`${date()}: Server started on port number: ${port}.`);
