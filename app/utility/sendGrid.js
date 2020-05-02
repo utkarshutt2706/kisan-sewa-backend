@@ -68,7 +68,7 @@ const sendWelcomeMail = async (user) => {
                         <h3>Use these credentials to verify your account and please update your password.</h3>
                         <p>Username: <strong>${user.username}</strong></p>
                         <p>Password: <strong>${user.password}</strong></p>
-                        <a href="http://localhost:4200/kisan/login">Click to login</a>
+                        <a href="https://kisan-sewa.herokuapp.com/kisan/login">Click to login</a>
                     </div>
                 </body>
             </html>
