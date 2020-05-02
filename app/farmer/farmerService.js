@@ -1,4 +1,6 @@
 const Farmer = require('./farmerModel');
+const generateString = require('../utility/randomString');
+const sendGrid = require('../utility/sendGrid');
 
 const registerFarmer = async (farmerParam) => {
     try {

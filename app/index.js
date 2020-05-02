@@ -36,9 +36,8 @@ app.post('/newsletter', newsletter.newsLetter);
 app.use(errorHandler);
 
 // port number
-const port = process.env.port || config.port;
+const port = process.env.PORT || config.port;
 
 app.listen(port, () => {
     logger.info(`${date()}: Server started on port number: ${port}.`);
-    console.log(typeof welcomeText);
 });

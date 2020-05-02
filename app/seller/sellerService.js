@@ -1,4 +1,6 @@
 const Seller = require('./sellerModel');
+const generateString = require('../utility/randomString');
+const sendGrid = require('../utility/sendGrid');
 
 const registerSeller = async (sellerParam) => {
     try {
