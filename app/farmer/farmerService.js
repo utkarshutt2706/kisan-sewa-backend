@@ -4,10 +4,19 @@ const sendGrid = require('../utility/sendGrid');
 
 const registerFarmer = async (farmerParam) => {
     try {
+        const lang = farmerParam.lang;
         if (await Farmer.findOne({ email: farmerParam.email })) {
-            throw 'Email already registered';
+            if (lang === 'hi') {
+                throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
+            } else {
+                throw 'Email already registered';
+            }
         } else if (await Farmer.findOne({ phone: farmerParam.phone })) {
-            throw 'Phone number already registered';
+            if (lang === 'hi') {
+                throw 'फ़ोन नंबर पहले से पंजीकृत है';
+            } else {
+                throw 'Phone number already registered';
+            }
         } else {
             const farmer = new Farmer(farmerParam);
             let username = generateString();
@@ -18,11 +27,19 @@ const registerFarmer = async (farmerParam) => {
             farmer.password = generateString();
             await sendGrid.sendWelcomeMail(farmer);
             await farmer.save();
-            return {
-                message: 'Registered successfully',
-                detail:
-                    'A mail has been sent to your email ID containing your username and password. Use it to login into your account.'
-            };
+            if (lang === 'hi') {
+                return {
+                    message: 'पंजीकरण सफल',
+                    detail:
+                        'आपके ईमेल आईडी पर एक मेल भेजा गया है जिसमें आपका उपयोगकर्ता नाम और पासवर्ड है। इसे अपने खाते में लॉगिन करने के लिए उपयोग करें।',
+                };
+            } else {
+                return {
+                    message: 'Registered successfully',
+                    detail:
+                        'A mail has been sent to your email ID containing your username and password. Use it to login into your account.',
+                };
+            }
         }
     } catch (error) {
         throw error;
@@ -31,11 +48,12 @@ const registerFarmer = async (farmerParam) => {
 
 const loginFarmer = async (farmerParam) => {
     try {
+        const lang = farmerParam.lang;
         const farmerByEmail = await Farmer.findOne({
-            email: farmerParam.username
+            email: farmerParam.username,
         });
         const farmerByUsername = await Farmer.findOne({
-            username: farmerParam.username
+            username: farmerParam.username,
         });
         if (farmerByEmail || farmerByUsername) {
             if (farmerByUsername) {
@@ -44,7 +62,11 @@ const loginFarmer = async (farmerParam) => {
                     const isVerified = farmerByUsername.isVerified;
                     return { email, isVerified };
                 } else {
-                    throw 'Incorrect password';
+                    if (lang === 'hi') {
+                        throw 'पासवर्ड गलत है';
+                    } else {
+                        throw 'Incorrect password';
+                    }
                 }
             }
             if (farmerByEmail) {
@@ -53,11 +75,19 @@ const loginFarmer = async (farmerParam) => {
                     const isVerified = farmerByEmail.isVerified;
                     return { email, isVerified };
                 } else {
-                    throw 'Incorrect password';
+                    if (lang === 'hi') {
+                        throw 'पासवर्ड गलत है';
+                    } else {
+                        throw 'Incorrect password';
+                    }
                 }
             }
         } else {
-            throw 'You are not registered. Please register first!';
+            if (lang === 'hi') {
+                throw 'आप पंजीकृत नहीं हैं। कृपया पहले पंजीकरण करें!';
+            } else {
+                throw 'You are not registered. Please register first!';
+            }
         }
     } catch (error) {
         throw error;
@@ -66,5 +96,5 @@ const loginFarmer = async (farmerParam) => {
 
 module.exports = {
     registerFarmer,
-    loginFarmer
+    loginFarmer,
 };

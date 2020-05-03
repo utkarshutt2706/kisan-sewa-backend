@@ -4,10 +4,19 @@ const sendGrid = require('../utility/sendGrid');
 
 const registerBooth = async (boothParam) => {
     try {
+        const lang = boothParam.lang;
         if (await Booth.findOne({ email: boothParam.email })) {
-            throw 'Email already registered';
+            if (lang === 'hi') {
+                throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
+            } else {
+                throw 'Email already registered';
+            }
         } else if (await Booth.findOne({ phone: boothParam.phone })) {
-            throw 'Phone number already registered';
+            if (lang === 'hi') {
+                throw 'फ़ोन नंबर पहले से पंजीकृत है';
+            } else {
+                throw 'Phone number already registered';
+            }
         } else {
             const booth = new Booth(boothParam);
             let username = generateString();
@@ -18,11 +27,19 @@ const registerBooth = async (boothParam) => {
             booth.password = generateString();
             await sendGrid.sendWelcomeMail(booth);
             await booth.save();
-            return {
-                message: 'Registered successfully',
-                detail:
-                    'A mail has been sent to your email ID containing your username and password. Use it to login into your account.'
-            };
+            if (lang === 'hi') {
+                return {
+                    message: 'पंजीकरण सफल',
+                    detail:
+                        'आपके ईमेल आईडी पर एक मेल भेजा गया है जिसमें आपका उपयोगकर्ता नाम और पासवर्ड है। इसे अपने खाते में लॉगिन करने के लिए उपयोग करें।',
+                };
+            } else {
+                return {
+                    message: 'Registered successfully',
+                    detail:
+                        'A mail has been sent to your email ID containing your username and password. Use it to login into your account.',
+                };
+            }
         }
     } catch (error) {
         throw error;
@@ -31,6 +48,7 @@ const registerBooth = async (boothParam) => {
 
 const loginBooth = async (boothParam) => {
     try {
+        const lang = boothParam.lang;
         const boothByEmail = await Booth.findOne({
             email: boothParam.username
         });
@@ -44,7 +62,11 @@ const loginBooth = async (boothParam) => {
                     const isVerified = boothByUsername.isVerified;
                     return { email, isVerified };
                 } else {
-                    throw 'Incorrect password';
+                    if (lang === 'hi') {
+                        throw 'पासवर्ड गलत है';
+                    } else {
+                        throw 'Incorrect password';
+                    }
                 }
             }
             if (boothByEmail) {
@@ -53,11 +75,19 @@ const loginBooth = async (boothParam) => {
                     const isVerified = boothByEmail.isVerified;
                     return { email, isVerified };
                 } else {
-                    throw 'Incorrect password';
+                    if (lang === 'hi') {
+                        throw 'पासवर्ड गलत है';
+                    } else {
+                        throw 'Incorrect password';
+                    }
                 }
             }
         } else {
-            throw 'You are not registered. Please register first!';
+            if (lang === 'hi') {
+                throw 'आप पंजीकृत नहीं हैं। कृपया पहले पंजीकरण करें!';
+            } else {
+                throw 'You are not registered. Please register first!';
+            }
         }
     } catch (error) {
         throw error;
