@@ -4,7 +4,7 @@ const sendGrid = require('../utility/sendGrid');
 
 const registerSeller = async (sellerParam) => {
     try {
-        const lang = boothParam.lang;
+        const lang = sellerParam.lang;
         if (await Seller.findOne({ email: sellerParam.email })) {
             if (lang === 'hi') {
                 throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
@@ -48,7 +48,7 @@ const registerSeller = async (sellerParam) => {
 
 const loginSeller = async (sellerParam) => {
     try {
-        const lang = boothParam.lang;
+        const lang = sellerParam.lang;
         const sellerByEmail = await Seller.findOne({
             email: sellerParam.username
         });
