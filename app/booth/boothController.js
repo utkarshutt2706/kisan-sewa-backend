@@ -1,6 +1,6 @@
 const boothService = require('./boothService');
 
-const findNearby = (req, resp, next) => {
+const findNearBy = (req, resp, next) => {
     boothService
         .findNearByBooths(req.body)
         .then((data) => {
@@ -12,5 +12,5 @@ const findNearby = (req, resp, next) => {
 };
 
 module.exports = {
-    findNearby,
+    findNearBy,
 };

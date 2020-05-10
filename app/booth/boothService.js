@@ -94,23 +94,31 @@ const loginBooth = async (boothParam) => {
     }
 };
 
-const findNearByBooths = () => {
+const findNearByBooths = async (coords) => {
     try {
-        
+        const booths = await Booth.find();
+        let distance = [];
+        for (i = 0; i < booths.length; i++) {
+            distance.push(calcDist(coords.lat, coords.lon, booths[i]));
+        }
+        distance.sort(sortAccDist);
+        return distance;
     } catch (error) {
         throw error;
     }
-}
+};
 
-const calcDist = (lat1, lon1, lat2, lon2) => {
+const calcDist = (lat1, lon1, booth) => {
+    let lat2 = booth.lat;
+    let lon2 = booth.lon;
     if (lat1 == lat2 && lon1 == lon2) {
         return 0;
     } else {
-        var radlat1 = (Math.PI * lat1) / 180;
-        var radlat2 = (Math.PI * lat2) / 180;
-        var theta = lon1 - lon2;
-        var radtheta = (Math.PI * theta) / 180;
-        var dist =
+        const radlat1 = (Math.PI * lat1) / 180;
+        const radlat2 = (Math.PI * lat2) / 180;
+        const theta = lon1 - lon2;
+        const radtheta = (Math.PI * theta) / 180;
+        let dist =
             Math.sin(radlat1) * Math.sin(radlat2) +
             Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
         if (dist > 1) {
@@ -120,12 +128,22 @@ const calcDist = (lat1, lon1, lat2, lon2) => {
         dist = (dist * 180) / Math.PI;
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344;
-        return dist;
+        return { dist, booth };
+    }
+};
+
+const sortAccDist = (a, b) => {
+    if (a.dist < b.dist) {
+        return -1;
+    } else if (a.dist > b.dist) {
+        return 1;
+    } else {
+        return 0;
     }
 };
 
 module.exports = {
     registerBooth,
     loginBooth,
-    findNearByBooths
+    findNearByBooths,
 };
