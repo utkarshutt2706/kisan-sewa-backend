@@ -9,7 +9,10 @@ const config = require('./config/development.json');
 
 const authRoute = require('./auth/authRoute');
 const boothRoute = require('./booth/boothRoute');
+const marketRateRoute = require('./marketRate/marketRateRoute');
+
 const newsletter = require('./newsletter/newsletterController');
+const weather = require('./weather/weatherController');
 
 // get connection to DB
 createConnection();
@@ -26,7 +29,9 @@ app.get('/', (req, resp) => {
 })
 app.use('/auth', authRoute);
 app.use('/booth', boothRoute);
+app.use('market-rate', marketRateRoute);
 app.post('/newsletter', newsletter.newsLetter);
+app.post('/weather', weather.weather);
 
 // global error handler
 app.use(errorHandler);
@@ -35,5 +40,6 @@ app.use(errorHandler);
 const port = process.env.PORT || config.port;
 
 app.listen(port, () => {
-    logger.info(`${date()}: Server started on port number: ${port}.`);
+    // logger.info(`${date()}: Server started on port number: ${port}.`);
+    console.log(`Server started at port number: ${port}`);
 });

@@ -1,0 +1,39 @@
+const oAuth = require('oauth');
+const config = require('../config/development.json');
+
+const weather = (req, resp, next) => {
+    try {
+        const header = {
+            'X-Yahoo-App-Id': config.weather.appId,
+        };
+        const request = new oAuth.OAuth(
+            null,
+            null,
+            config.weather.consumerKey,
+            config.weather.consumerSecret,
+            '1.0',
+            null,
+            'HMAC-SHA1',
+            null,
+            header
+        );
+        request.get(
+            `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.body.lat}&lon=${req.body.lon}&format=json`,
+            null,
+            null,
+            (err, data, result) => {
+                if (err) {
+                    throw error;
+                } else {
+                    resp.json(data);
+                }
+            }
+        );
+    } catch (error) {
+        throw error;
+    }
+};
+
+module.exports = {
+    weather,
+};

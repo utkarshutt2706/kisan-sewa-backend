@@ -16,11 +16,11 @@ const dbOptions = {
 const createConnection = async () => {
     await mongoose.connect(mongoURI, dbOptions)
         .then(() => {
-            logger.info(`${date()}: Connection to DB established at URI: ${mongoURI}`);
+            // logger.info(`${date()}: Connection to DB established at URI: ${mongoURI}`);
             console.log('DB Connected');
         })
         .catch((error) => {
-            logger.error(`${date()}: Connection to DB failed`);
+            // logger.error(`${date()}: Connection to DB failed`);
             console.log('DB Connection Failed');
             console.log(error);
         });
