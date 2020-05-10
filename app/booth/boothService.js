@@ -102,7 +102,7 @@ const findNearByBooths = async (coords) => {
             distance.push(calcDist(coords.lat, coords.lon, booths[i]));
         }
         distance.sort(sortAccDist);
-        return distance;
+        return distance.slice(0, 5);
     } catch (error) {
         throw error;
     }
