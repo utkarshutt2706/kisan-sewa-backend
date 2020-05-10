@@ -1,9 +1,16 @@
 const boothService = require('./boothService');
 
-const registerBooth = (req, resp, next) => {
-    
+const findNearby = (req, resp, next) => {
+    boothService
+        .findNearByBooths(req.body)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
 };
 
 module.exports = {
-    registerBooth
+    findNearby,
 };
