@@ -1,31 +1,31 @@
 {
-  "name": "kisan-sewa-backend",
-  "version": "1.0.0",
-  "description": "Final year project",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app/index.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/utkarshutt2706/kisan-sewa-backend.git"
-  },
-  "author": "Utkarsh Srivastava",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/utkarshutt2706/kisan-sewa-backend/issues"
-  },
-  "homepage": "https://github.com/utkarshutt2706/kisan-sewa-backend#readme",
-  "dependencies": {
-    "@sendgrid/mail": "^6.5.5",
-    "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "express-jwt": "^5.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.5",
-    "nodemon": "^2.0.2",
-    "oauth": "^0.9.15",
-    "winston": "^3.2.1"
-  }
+    "name": "kisan-sewa-backend",
+    "version": "1.0.0",
+    "description": "Final year project",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon app/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/utkarshutt2706/kisan-sewa-backend.git"
+    },
+    "author": "Utkarsh Srivastava",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/utkarshutt2706/kisan-sewa-backend/issues"
+    },
+    "homepage": "https://github.com/utkarshutt2706/kisan-sewa-backend#readme",
+    "dependencies": {
+        "@sendgrid/mail": "^6.5.5",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-jwt": "^5.3.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.9.5",
+        "nodemon": "^2.0.2",
+        "oauth": "^0.9.15",
+        "winston": "^3.2.1"
+    }
 }
