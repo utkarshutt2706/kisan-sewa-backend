@@ -21,7 +21,7 @@ const weather = (req, resp, next) => {
             `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.body.lat}&lon=${req.body.lon}&u=c&format=json`,
             null,
             null,
-            (err, data, result) => {
+            (error, data, result) => {
                 if (err) {
                     throw error;
                 } else {
