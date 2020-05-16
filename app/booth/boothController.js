@@ -2,7 +2,7 @@ const boothService = require('./boothService');
 
 const findNearBy = (req, resp, next) => {
     boothService
-        .findNearByBooths(req.body)
+        .findNearByBooths(req.query)
         .then((data) => {
             resp.json(data);
         })

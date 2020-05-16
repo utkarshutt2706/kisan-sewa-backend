@@ -2,7 +2,7 @@ const marketRateService = require('./marketRateService');
 
 const setMarketRate = (req, resp, next) => {
     marketRateService
-        .setMarketRate(req, body)
+        .setMarketRate(req.body)
         .then((data) => {
             resp.json(data);
         })
@@ -13,7 +13,7 @@ const setMarketRate = (req, resp, next) => {
 
 const getMarketRate = (req, resp, next) => {
     marketRateService
-        .getMarketRate(req, body)
+        .getMarketRate(req.query)
         .then((data) => {
             resp.json(data);
         })

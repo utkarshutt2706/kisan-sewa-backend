@@ -26,9 +26,9 @@ app.get('/', (req, resp) => {
 
 app.use('/auth', authRoute);
 app.use('/booth', boothRoute);
-app.use('market-rate', marketRateRoute);
+app.use('/market-rate', marketRateRoute);
 app.post('/newsletter', newsletter.newsLetter);
-app.post('/weather', weather.weather);
+app.get('/weather', weather.weather);
 
 // global error handler
 app.use(errorHandler);

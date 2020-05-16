@@ -3,6 +3,7 @@ const config = require('../config/development.json');
 
 const weather = (req, resp, next) => {
     try {
+        console.log(req.query);
         const header = {
             'X-Yahoo-App-Id': config.weather.appId,
         };
@@ -18,12 +19,12 @@ const weather = (req, resp, next) => {
             header
         );
         request.get(
-            `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.body.lat}&lon=${req.body.lon}&u=c&format=json`,
+            `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.query.lat}&lon=${req.query.lon}&u=c&format=json`,
             null,
             null,
             (error, data, result) => {
                 if (error) {
-                    res.status(400).json({});
+                    resp.status(400).json({});
                 } else {
                     resp.json(data);
                 }
