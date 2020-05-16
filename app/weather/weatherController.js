@@ -30,7 +30,7 @@ const weather = (req, resp, next) => {
             }
         );
     } catch (error) {
-        throw error;
+        next(error);
     }
 };
 
