@@ -8,4 +8,4 @@ const marketRateSchema = mongoose.Schema({
     avgRate: { type: Number, required: true }
 });
 
-module.exports = mongoose.model('MarkerRates', marketRateSchema);
+module.exports = mongoose.model('MarketRates', marketRateSchema);
