@@ -23,7 +23,7 @@ const weather = (req, resp, next) => {
             null,
             (error, data, result) => {
                 if (error) {
-                    throw error;
+                    res.status(400).json({});
                 } else {
                     resp.json(data);
                 }
