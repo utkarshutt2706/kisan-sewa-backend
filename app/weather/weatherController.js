@@ -18,7 +18,7 @@ const weather = (req, resp, next) => {
             header
         );
         request.get(
-            `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.body.lat}&lon=${req.body.lon}&format=json`,
+            `https://weather-ydn-yql.media.yahoo.com/forecastrss?lat=${req.body.lat}&lon=${req.body.lon}&u=c&format=json`,
             null,
             null,
             (err, data, result) => {
