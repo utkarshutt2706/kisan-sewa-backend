@@ -101,8 +101,16 @@ const findNearByBooths = async (coords) => {
         for (i = 0; i < booths.length; i++) {
             distance.push(calcDist(coords.lat, coords.lon, booths[i]));
         }
+        let limit;
+        if(coords.limit) {
+            limit = coords.limit;    
+        } else {
+            limit = 2;
+        }
         distance.sort(sortAccDist);
-        return distance.slice(0, 5);
+        const slicedArr = distance.slice(0, limit);
+        const viewMore = !(slicedArr.length === distance.length);
+        return { booths: slicedArr, viewMore};
     } catch (error) {
         throw error;
     }
@@ -146,5 +154,5 @@ const sortAccDist = (a, b) => {
 module.exports = {
     registerBooth,
     loginBooth,
-    findNearByBooths,
+    findNearByBooths
 };

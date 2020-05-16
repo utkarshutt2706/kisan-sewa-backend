@@ -3,7 +3,6 @@ const config = require('../config/development.json');
 
 const weather = (req, resp, next) => {
     try {
-        console.log(req.query);
         const header = {
             'X-Yahoo-App-Id': config.weather.appId,
         };
