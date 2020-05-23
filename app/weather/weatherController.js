@@ -23,13 +23,18 @@ const weather = (req, resp, next) => {
             null,
             (error, data, result) => {
                 if (error) {
+                    console.log('//////error');
+                    console.log(error);
                     resp.status(400).json({});
                 } else {
+                    console.log(data);
                     resp.json(data);
                 }
             }
         );
     } catch (error) {
+        console.log('----- catch');
+        console.log(error);
         next(error);
     }
 };

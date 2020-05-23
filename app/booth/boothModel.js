@@ -9,9 +9,9 @@ const boothSchema = mongoose.Schema({
     boothName: { type: String, required: true },
     address: { type: String, required: true },
     isVerified: { type: Boolean, required: true, default: false },
-    lat: {type: Number, required: true},
-    lon: {type: Number, required: true},
-    picture: {type: String, required: true, default: 'default/default.jpg'}
+    lat: { type: Number, required: true },
+    lon: { type: Number, required: true },
+    picture: { type: String, required: true, default: 'default/default.jpg' },
 });
 
 module.exports = mongoose.model('Booth', boothSchema);

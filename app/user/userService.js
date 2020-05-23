@@ -1,32 +1,32 @@
-const Seller = require('./sellerModel');
+const User = require('./userModel');
 const generateString = require('../utility/randomString');
 const sendGrid = require('../utility/sendGrid');
 
-const registerSeller = async (sellerParam) => {
+const registerUser = async (userParam) => {
     try {
-        const lang = sellerParam.lang;
-        if (await Seller.findOne({ email: sellerParam.email })) {
+        const lang = userParam.lang;
+        if (await User.findOne({ email: userParam.email })) {
             if (lang === 'hi') {
                 throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
             } else {
                 throw 'Email already registered';
             }
-        } else if (await Seller.findOne({ phone: sellerParam.phone })) {
+        } else if (await User.findOne({ phone: userParam.phone })) {
             if (lang === 'hi') {
                 throw 'फ़ोन नंबर पहले से पंजीकृत है';
             } else {
                 throw 'Phone number already registered';
             }
         } else {
-            const seller = new Seller(sellerParam);
+            const user = new User(userParam);
             let username = generateString();
-            while (await Seller.findOne({ username: `seller-${username}` })) {
+            while (await User.findOne({ username: `user-${username}` })) {
                 username = generateString();
             }
-            seller.username = `seller-${username}`;
-            seller.password = generateString();
-            await sendGrid.sendWelcomeMail(seller);
-            await seller.save();
+            user.username = `user-${username}`;
+            user.password = generateString();
+            await sendGrid.sendWelcomeMail(user);
+            await user.save();
             if (lang === 'hi') {
                 return {
                     message: 'पंजीकरण सफल',
@@ -46,20 +46,20 @@ const registerSeller = async (sellerParam) => {
     }
 };
 
-const loginSeller = async (sellerParam) => {
+const loginUser = async (userParam) => {
     try {
-        const lang = sellerParam.lang;
-        const sellerByEmail = await Seller.findOne({
-            email: sellerParam.username
+        const lang = userParam.lang;
+        const userByEmail = await User.findOne({
+            email: userParam.username,
         });
-        const sellerByUsername = await Seller.findOne({
-            username: sellerParam.username
+        const userByUsername = await User.findOne({
+            username: userParam.username,
         });
-        if (sellerByEmail || sellerByUsername) {
-            if (sellerByUsername) {
-                if (sellerByUsername.password === sellerParam.password) {
-                    const email = sellerByUsername.email;
-                    const isVerified = sellerByUsername.isVerified;
+        if (userByEmail || userByUsername) {
+            if (userByUsername) {
+                if (userByUsername.password === userParam.password) {
+                    const email = userByUsername.email;
+                    const isVerified = userByUsername.isVerified;
                     return { email, isVerified };
                 } else {
                     if (lang === 'hi') {
@@ -69,11 +69,11 @@ const loginSeller = async (sellerParam) => {
                     }
                 }
             }
-            if (sellerByEmail) {
-                if(sellerByEmail.password === sellerParam.password) {
-                    const email = sellerByEmail.email;
-                const isVerified = sellerByEmail.isVerified;
-                return { email, isVerified };
+            if (userByEmail) {
+                if (userByEmail.password === userParam.password) {
+                    const email = userByEmail.email;
+                    const isVerified = userByEmail.isVerified;
+                    return { email, isVerified };
                 } else {
                     if (lang === 'hi') {
                         throw 'पासवर्ड गलत है';
@@ -95,6 +95,6 @@ const loginSeller = async (sellerParam) => {
 };
 
 module.exports = {
-    registerSeller,
-    loginSeller
+    registerUser,
+    loginUser,
 };

@@ -8,6 +8,8 @@ const config = require('./config/development.json');
 const authRoute = require('./auth/authRoute');
 const boothRoute = require('./booth/boothRoute');
 const marketRateRoute = require('./marketRate/marketRateRoute');
+const sellRoute = require('./sell/sellRoute');
+const rentRoute = require('./rent/rentRoute');
 
 const newsletter = require('./newsletter/newsletterController');
 const weather = require('./weather/weatherController');
@@ -17,16 +19,19 @@ const app = express();
 // middlewares
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public'))
+app.use(express.static('public'));
 
 app.get('/', (req, resp) => {
-    resp.writeHead(301, {'Location': 'https://kisan-sewa.herokuapp.com/'});
+    resp.writeHead(301, { Location: 'https://kisan-sewa.herokuapp.com/' });
     resp.end();
 });
 
 app.use('/auth', authRoute);
 app.use('/booth', boothRoute);
 app.use('/market-rate', marketRateRoute);
+app.use('/sell', sellRoute);
+app.use('/rent', rentRoute);
+
 app.post('/newsletter', newsletter.newsLetter);
 app.get('/weather', weather.weather);
 

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const farmerSchema = mongoose.Schema({
+const userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
@@ -11,4 +11,4 @@ const farmerSchema = mongoose.Schema({
     picture: {type: String, required: true, default: 'default/default.jpg'}
 });
 
-module.exports = mongoose.model('Farmer', farmerSchema);
+module.exports = mongoose.model('User', userSchema);

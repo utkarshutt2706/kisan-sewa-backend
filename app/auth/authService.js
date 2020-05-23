@@ -1,14 +1,11 @@
-const { registerFarmer, loginFarmer } = require('../farmer/farmerService');
-const { registerSeller, loginSeller } = require('../seller/sellerService');
+const { registerUser, loginUser } = require('../user/userService');
 const { registerBooth, loginBooth } = require('../booth/boothService');
 
 const register = async (param) => {
     try {
         switch (param.registerAs) {
-            case 'farmer':
-                return await registerFarmer(param);
-            case 'seller':
-                return await registerSeller(param);
+            case 'user':
+                return await registerUser(param);
             case 'booth':
                 return await registerBooth(param);
             default:
@@ -22,10 +19,8 @@ const register = async (param) => {
 const login = async (param) => {
     try {
         switch (param.loginAs) {
-            case 'farmer':
-                return await loginFarmer(param);
-            case 'seller':
-                return await loginSeller(param);
+            case 'user':
+                return await loginUser(param);
             case 'booth':
                 return await loginBooth(param);
             default:
