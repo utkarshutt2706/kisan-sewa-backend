@@ -11,6 +11,18 @@ const findNearBy = (req, resp, next) => {
         });
 };
 
+const updateBooth = (req, resp, next) => {
+    boothService
+        .updateBooth(req.body, req.file)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
+
 module.exports = {
     findNearBy,
+    updateBooth
 };

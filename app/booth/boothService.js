@@ -58,9 +58,8 @@ const loginBooth = async (boothParam) => {
         if (boothByEmail || boothByUsername) {
             if (boothByUsername) {
                 if (boothByUsername.password === boothParam.password) {
-                    const email = boothByUsername.email;
-                    const isVerified = boothByUsername.isVerified;
-                    return { email, isVerified };
+                    boothByUsername.password = null;
+                    return boothByUsername;
                 } else {
                     if (lang === 'hi') {
                         throw 'पासवर्ड गलत है';
@@ -71,9 +70,8 @@ const loginBooth = async (boothParam) => {
             }
             if (boothByEmail) {
                 if (boothByEmail.password === boothParam.password) {
-                    const email = boothByEmail.email;
-                    const isVerified = boothByEmail.isVerified;
-                    return { email, isVerified };
+                    boothByEmail.password = null;
+                    return boothByEmail;
                 } else {
                     if (lang === 'hi') {
                         throw 'पासवर्ड गलत है';
@@ -137,6 +135,7 @@ const calcDist = (lat1, lon1, booth) => {
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344;
         dist = dist.toFixed();
+        booth.password = null;
         return { dist, booth };
     }
 };
@@ -151,8 +150,26 @@ const sortAccDist = (a, b) => {
     }
 };
 
+const updateBooth = async (bodyObj, fileObj) => {
+    try {
+        const booth = await Booth.findOne({email: bodyObj.email});
+        booth.name = bodyObj.name;
+        booth.boothName = bodyObj.boothName;
+        booth.address = bodyObj.address;
+        booth.phone = bodyObj.phone;
+        if(fileObj) {
+            booth.picture = `booths/${fileObj.filename}`;
+        }
+        await booth.save();
+        return {message: 'done'};
+    } catch (error) {
+        throw error;
+    }
+}
+
 module.exports = {
     registerBooth,
     loginBooth,
-    findNearByBooths
+    findNearByBooths,
+    updateBooth
 };
