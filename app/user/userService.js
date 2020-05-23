@@ -58,9 +58,8 @@ const loginUser = async (userParam) => {
         if (userByEmail || userByUsername) {
             if (userByUsername) {
                 if (userByUsername.password === userParam.password) {
-                    const email = userByUsername.email;
-                    const isVerified = userByUsername.isVerified;
-                    return { email, isVerified };
+                    userByUsername.password = null;
+                    return userByUsername;
                 } else {
                     if (lang === 'hi') {
                         throw 'पासवर्ड गलत है';
@@ -71,9 +70,8 @@ const loginUser = async (userParam) => {
             }
             if (userByEmail) {
                 if (userByEmail.password === userParam.password) {
-                    const email = userByEmail.email;
-                    const isVerified = userByEmail.isVerified;
-                    return { email, isVerified };
+                    userByEmail.password = null;
+                    return userByEmail;
                 } else {
                     if (lang === 'hi') {
                         throw 'पासवर्ड गलत है';

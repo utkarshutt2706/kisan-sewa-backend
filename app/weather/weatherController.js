@@ -27,7 +27,7 @@ const weather = (req, resp, next) => {
                     console.log(error);
                     resp.status(400).json({});
                 } else {
-                    console.log(data);
+                    console.log('Success weather data returned');
                     resp.json(data);
                 }
             }
