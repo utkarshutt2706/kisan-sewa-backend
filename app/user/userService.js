@@ -92,7 +92,77 @@ const loginUser = async (userParam) => {
     }
 };
 
+const updateUser = async (bodyObj, fileObj) => {
+    try {
+        const lang = bodyObj.lang;
+        const user = await User.findOne({ email: bodyObj.email });
+        user.name = bodyObj.name;
+        user.occupation = bodyObj.occupation;
+        user.address = bodyObj.address;
+        user.phone = bodyObj.phone;
+        if (fileObj) {
+            user.picture = `booths/${fileObj.filename}`;
+        }
+        await user.save();
+        if (lang === 'hi') {
+            return {
+                message: 'प्रोफाइल को सफलतापूर्वक अपडेट किया गया',
+            };
+        } else {
+            return {
+                message: 'Profile updated successfully',
+            };
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+const updatePassword = async (param) => {
+    try {
+        const lang = param.lang;
+        const user = await User.findOne({ email: param.email });
+        if (user.password === param.currentPass) {
+            if (param.newPass === param.currentPass) {
+                if (lang === 'hi') {
+                    throw 'वर्तमान पासवर्ड और नया पासवर्ड समान नहीं हो सकते';
+                } else {
+                    throw 'Current password and old password cannot be same';
+                }
+            } else if(param.newPass === param.confirmPass) {
+                user.password = param.newPass;
+                await user.save();
+                if (lang === 'hi') {
+                    return {
+                        message: 'पासवर्ड सफलतापूर्वक अपडेट किया गया',
+                    };
+                } else {
+                    return {
+                        message: 'Password updated successfully',
+                    };
+                }
+            } else {
+                if (lang === 'hi') {
+                    throw 'पासवर्ड मेल नहीं खाते';
+                } else {
+                    throw 'Passwords do not match';
+                }
+            }
+        } else {
+            if (lang === 'hi') {
+                throw 'मौजूदा पासवर्ड गलत है';
+            } else {
+                throw 'Incorrect current password';
+            }
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
+    updateUser,
+    updatePassword,
 };

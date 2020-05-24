@@ -100,15 +100,15 @@ const findNearByBooths = async (coords) => {
             distance.push(calcDist(coords.lat, coords.lon, booths[i]));
         }
         let limit;
-        if(coords.limit) {
-            limit = coords.limit;    
+        if (coords.limit) {
+            limit = coords.limit;
         } else {
             limit = 2;
         }
         distance.sort(sortAccDist);
         const slicedArr = distance.slice(0, limit);
         const viewMore = !(slicedArr.length === distance.length);
-        return { booths: slicedArr, viewMore};
+        return { booths: slicedArr, viewMore };
     } catch (error) {
         throw error;
     }
@@ -152,16 +152,67 @@ const sortAccDist = (a, b) => {
 
 const updateBooth = async (bodyObj, fileObj) => {
     try {
-        const booth = await Booth.findOne({email: bodyObj.email});
+        const lang = bodyObj.lang;
+        const booth = await Booth.findOne({ email: bodyObj.email });
         booth.name = bodyObj.name;
         booth.boothName = bodyObj.boothName;
         booth.address = bodyObj.address;
         booth.phone = bodyObj.phone;
-        if(fileObj) {
+        if (fileObj) {
             booth.picture = `booths/${fileObj.filename}`;
         }
         await booth.save();
-        return {message: 'done'};
+        if (lang === 'hi') {
+            return {
+                message: 'प्रोफाइल को सफलतापूर्वक अपडेट किया गया'
+            };
+        } else {
+            return {
+                message: 'Profile updated successfully'
+            };
+        }
+    } catch (error) {
+        throw error;
+    }
+};
+
+const updatePassword = async (param) => {
+    try {
+        const lang = param.lang;
+        const booth = await Booth.findOne({ email: param.email });
+        if (booth.password === param.currentPass) {
+            if (param.newPass === param.currentPass) {
+                if (lang === 'hi') {
+                    throw 'वर्तमान पासवर्ड और नया पासवर्ड समान नहीं हो सकते';
+                } else {
+                    throw 'Current password and old password cannot be same';
+                }
+            } else if(param.newPass === param.confirmPass) {
+                booth.password = param.newPass;
+                await booth.save();
+                if (lang === 'hi') {
+                    return {
+                        message: 'पासवर्ड सफलतापूर्वक अपडेट किया गया',
+                    };
+                } else {
+                    return {
+                        message: 'Password updated successfully',
+                    };
+                }
+            } else {
+                if (lang === 'hi') {
+                    throw 'पासवर्ड मेल नहीं खाते';
+                } else {
+                    throw 'Passwords do not match';
+                }
+            }
+        } else {
+            if (lang === 'hi') {
+                throw 'मौजूदा पासवर्ड गलत है';
+            } else {
+                throw 'Incorrect current password';
+            }
+        }
     } catch (error) {
         throw error;
     }
@@ -171,5 +222,6 @@ module.exports = {
     registerBooth,
     loginBooth,
     findNearByBooths,
-    updateBooth
+    updateBooth,
+    updatePassword,
 };

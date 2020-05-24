@@ -22,7 +22,19 @@ const updateBooth = (req, resp, next) => {
         });
 };
 
+const updatePassword = (req, resp, next) => {
+    boothService
+        .updatePassword(req.body)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
+
 module.exports = {
     findNearBy,
-    updateBooth
+    updateBooth,
+    updatePassword,
 };

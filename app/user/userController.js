@@ -1,5 +1,28 @@
 const userService = require('./userService');
 
-module.exports = {
+const updateUser = (req, resp, next) => {
+    userService
+        .updateUser(req.body, req.file)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
 
+const updatePassword = (req, resp, next) => {
+    userService
+        .updatePassword(req.body)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
+
+module.exports = {
+    updateUser,
+    updatePassword,
 };

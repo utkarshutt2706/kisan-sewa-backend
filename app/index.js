@@ -7,6 +7,7 @@ const config = require('./config/development.json');
 
 const authRoute = require('./auth/authRoute');
 const boothRoute = require('./booth/boothRoute');
+const userRoute = require('./user/userRoute');
 const marketRateRoute = require('./marketRate/marketRateRoute');
 const sellRoute = require('./sell/sellRoute');
 const rentRoute = require('./rent/rentRoute');
@@ -28,6 +29,7 @@ app.get('/', (req, resp) => {
 
 app.use('/auth', authRoute);
 app.use('/booth', boothRoute);
+app.use('/user', userRoute);
 app.use('/market-rate', marketRateRoute);
 app.use('/sell', sellRoute);
 app.use('/rent', rentRoute);

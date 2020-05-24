@@ -19,5 +19,6 @@ const upload = multer({ storage });
 //routes
 router.get('/nearby', boothController.findNearBy);
 router.post('/update', upload.single('picture'), boothController.updateBooth);
+router.post('/password', boothController.updatePassword);
 
 module.exports = router;
