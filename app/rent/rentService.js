@@ -44,7 +44,8 @@ const setItemForRent = async (bodyObj, fileList) => {
 
 const getItemsForRent = async () => {
     try {
-        return ['dummy product'];
+        const items = await Rent.find();
+        return items;
     } catch (error) {
         throw error;
     }

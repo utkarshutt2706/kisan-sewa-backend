@@ -8,6 +8,7 @@ const sellSchema = mongoose.Schema({
     quantity: { type: String, required: true },
     category: { type: String, required: true },
     desc: { type: String, required: true },
+    addedOn: { type: Date, required: true, default: Date.now() },
     picture1: { type: String },
     picture2: { type: String },
     picture3: { type: String },

@@ -44,7 +44,8 @@ const setItemForSale = async (bodyObj, fileList) => {
 
 const getItemsForSale = async () => {
     try {
-        return [];
+        const items = await Sell.find();
+        return items;
     } catch (error) {
         throw error;
     }
