@@ -1,30 +1,9 @@
 const Rent = require('./rentModel');
 
-const setItemForRent = async (bodyObj, fileList) => {
+const setItemForRent = async (bodyObj) => {
     try {
         const lang = bodyObj.lang;
         const rent = new Rent(bodyObj);
-        for (let i = 0; i < fileList.length; i++) {
-            const element = fileList[i];
-            switch (i) {
-                case 0:
-                    rent.picture0 = `rents/${element.filename}`;
-                    break;
-                case 1:
-                    rent.picture1 = `rents/${element.filename}`;
-                    break;
-                case 2:
-                    rent.picture2 = `rents/${element.filename}`;
-                    break;
-                case 3:
-                    rent.picture3 = `rents/${element.filename}`;
-                    break;
-                case 4:
-                    rent.picture4 = `rents/${element.filename}`;
-                default:
-                    break;
-            }
-        }
         await rent.save();
         if (lang === 'hi') {
             return {

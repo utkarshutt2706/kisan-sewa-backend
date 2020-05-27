@@ -150,7 +150,7 @@ const sortAccDist = (a, b) => {
     }
 };
 
-const updateBooth = async (bodyObj, fileObj) => {
+const updateBooth = async (bodyObj) => {
     try {
         const lang = bodyObj.lang;
         const booth = await Booth.findOne({ email: bodyObj.email });
@@ -158,8 +158,8 @@ const updateBooth = async (bodyObj, fileObj) => {
         booth.boothName = bodyObj.boothName;
         booth.address = bodyObj.address;
         booth.phone = bodyObj.phone;
-        if (fileObj) {
-            booth.picture = `booths/${fileObj.filename}`;
+        if (bodyObj.picture) {
+            booth.picture = bodyObj.picture;
         }
         await booth.save();
         if (lang === 'hi') {

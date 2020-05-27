@@ -2,7 +2,7 @@ const rentService = require('./rentService');
 
 const setItemForRent = (req, resp, next) => {
     rentService
-        .setItemForRent(req.body, req.files)
+        .setItemForRent(req.body)
         .then((data) => {
             resp.json(data);
         })

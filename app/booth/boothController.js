@@ -13,7 +13,7 @@ const findNearBy = (req, resp, next) => {
 
 const updateBooth = (req, resp, next) => {
     boothService
-        .updateBooth(req.body, req.file)
+        .updateBooth(req.body)
         .then((data) => {
             resp.json(data);
         })

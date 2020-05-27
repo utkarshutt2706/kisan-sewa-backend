@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const defaultValue = require('../config/default.json');
 
 const sellSchema = mongoose.Schema({
     soldBy: { type: String, required: true },
@@ -16,7 +17,7 @@ const sellSchema = mongoose.Schema({
     picture0: {
         type: String,
         required: true,
-        default: 'default/defaultProduct.jpg',
+        default: defaultValue.product,
     },
 });
 

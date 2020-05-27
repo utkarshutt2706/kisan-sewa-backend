@@ -92,7 +92,7 @@ const loginUser = async (userParam) => {
     }
 };
 
-const updateUser = async (bodyObj, fileObj) => {
+const updateUser = async (bodyObj) => {
     try {
         const lang = bodyObj.lang;
         const user = await User.findOne({ email: bodyObj.email });
@@ -100,8 +100,8 @@ const updateUser = async (bodyObj, fileObj) => {
         user.occupation = bodyObj.occupation;
         user.address = bodyObj.address;
         user.phone = bodyObj.phone;
-        if (fileObj) {
-            user.picture = `booths/${fileObj.filename}`;
+        if (bodyObj.picture) {
+            user.picture = bodyObj.picture;
         }
         await user.save();
         if (lang === 'hi') {

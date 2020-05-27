@@ -2,7 +2,7 @@ const userService = require('./userService');
 
 const updateUser = (req, resp, next) => {
     userService
-        .updateUser(req.body, req.file)
+        .updateUser(req.body)
         .then((data) => {
             resp.json(data);
         })

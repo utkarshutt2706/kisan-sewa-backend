@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const defaultValue = require('../config/default.json');
 
 const userSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
@@ -9,7 +10,7 @@ const userSchema = mongoose.Schema({
     occupation: { type: String, required: true },
     address: { type: String, required: true },
     isVerified: { type: Boolean, required: true, default: false },
-    picture: { type: String, required: true, default: 'default/default.jpg' },
+    picture: { type: String, required: true, default: defaultValue.profile },
 });
 
 module.exports = mongoose.model('User', userSchema);

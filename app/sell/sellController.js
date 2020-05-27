@@ -2,7 +2,7 @@ const sellService = require('./sellService');
 
 const setItemForSale = (req, resp, next) => {
     sellService
-        .setItemForSale(req.body, req.files)
+        .setItemForSale(req.body)
         .then((data) => {
             resp.json(data);
         })

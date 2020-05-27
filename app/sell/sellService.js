@@ -1,30 +1,9 @@
 const Sell = require('./sellModel');
 
-const setItemForSale = async (bodyObj, fileList) => {
+const setItemForSale = async (bodyObj) => {
     try {
         const lang = bodyObj.lang;
         const sell = new Sell(bodyObj);
-        for (let i = 0; i < fileList.length; i++) {
-            const element = fileList[i];
-            switch (i) {
-                case 0:
-                    sell.picture0 = `sales/${element.filename}`;
-                    break;
-                case 1:
-                    sell.picture1 = `sales/${element.filename}`;
-                    break;
-                case 2:
-                    sell.picture2 = `sales/${element.filename}`;
-                    break;
-                case 3:
-                    sell.picture3 = `sales/${element.filename}`;
-                    break;
-                case 4:
-                    sell.picture4 = `sales/${element.filename}`;
-                default:
-                    break;
-            }
-        }
         await sell.save();
         if (lang === 'hi') {
             return {
