@@ -7,7 +7,7 @@ const registerUser = async (userParam) => {
         const lang = userParam.lang;
         if (await User.findOne({ email: userParam.email })) {
             if (lang === 'hi') {
-                throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
+                throw 'ईमेल पहले से ही पंजीकृत है';
             } else {
                 throw 'Email already registered';
             }
@@ -31,7 +31,7 @@ const registerUser = async (userParam) => {
                 return {
                     message: 'पंजीकरण सफल',
                     detail:
-                        'आपके ईमेल आईडी पर एक मेल भेजा गया है जिसमें आपका उपयोगकर्ता नाम और पासवर्ड है। इसे अपने खाते में लॉगिन करने के लिए उपयोग करें।',
+                        'आपके ईमेल आई-डी पर एक मेल भेजा गया है जिसमें आपका उपयोगकर्ता नाम और पासवर्ड है। इसे अपने खाते में लॉगिन करने के लिए उपयोग करें।',
                 };
             } else {
                 return {

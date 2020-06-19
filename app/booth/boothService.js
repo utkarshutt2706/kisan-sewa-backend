@@ -7,7 +7,7 @@ const registerBooth = async (boothParam) => {
         const lang = boothParam.lang;
         if (await Booth.findOne({ email: boothParam.email })) {
             if (lang === 'hi') {
-                throw 'ईमेल पहले से ही पंजीकृत हैईमेल पहले से ही पंजीकृत है';
+                throw 'ईमेल पहले से ही पंजीकृत है';
             } else {
                 throw 'Email already registered';
             }

@@ -25,7 +25,7 @@ const getMarketRate = async (param) => {
             },
             {
                 nameEn: 'Onion',
-                nameHi: 'प्याज',
+                nameHi: 'प्याज़',
                 localRate: 30,
                 avgRate: 40
             },

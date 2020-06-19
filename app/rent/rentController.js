@@ -22,7 +22,20 @@ const getItemsForRent = (req, resp, next) => {
         });
 };
 
+const getItemById = (req, resp, next) => {
+    console.log(req.params);
+    rentService
+        .getItemById(id)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
+
 module.exports = {
     setItemForRent,
-    getItemsForRent
-}
+    getItemsForRent,
+    getItemById,
+};

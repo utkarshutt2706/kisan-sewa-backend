@@ -72,7 +72,7 @@ const sendWelcomeMail = async (user) => {
                     </div>
                 </body>
             </html>
-        `
+        `,
     };
     try {
         await sendGrid.send(msg);
@@ -82,5 +82,5 @@ const sendWelcomeMail = async (user) => {
 };
 
 module.exports = {
-    sendWelcomeMail
+    sendWelcomeMail,
 };

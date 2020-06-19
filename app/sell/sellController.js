@@ -22,7 +22,19 @@ const getItemsForSale = (req, resp, next) => {
         });
 };
 
+const getItemById = (req, resp, next) => {
+    sellService
+        .getItemById(req.params.id)
+        .then((data) => {
+            resp.json(data);
+        })
+        .catch((error) => {
+            next(error);
+        });
+};
+
 module.exports = {
     setItemForSale,
     getItemsForSale,
+    getItemById,
 };
