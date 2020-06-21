@@ -34,9 +34,17 @@ const getItemsForRent = async () => {
 const getItemById = async (id) => {
     try {
         const rent = await Rent.findById(id);
-        return rent;
+        if (rent) {
+            return rent;
+        } else {
+            throw { message: 'null' };
+        }
     } catch (error) {
-        throw error;
+        if (error.name === 'CastError') {
+            throw { message: 'invalidUrl' };
+        } else {
+            throw error;
+        }
     }
 };
 

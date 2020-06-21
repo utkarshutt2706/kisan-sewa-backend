@@ -129,7 +129,7 @@ const updatePassword = async (param) => {
                 } else {
                     throw 'Current password and old password cannot be same';
                 }
-            } else if(param.newPass === param.confirmPass) {
+            } else if (param.newPass === param.confirmPass) {
                 user.password = param.newPass;
                 await user.save();
                 if (lang === 'hi') {
@@ -160,9 +160,73 @@ const updatePassword = async (param) => {
     }
 };
 
+const getUserById = async (id) => {
+    try {
+        const user = await User.findById(id);
+        if (user) {
+            return user;
+        } else {
+            throw { message: 'null' };
+        }
+    } catch (error) {
+        if (error.name === 'CastError') {
+            throw { message: 'invalidUrl' };
+        } else {
+            throw error;
+        }
+    }
+};
+
+const followUser = async (param) => {
+    try {
+        const currentUser = await User.findById(param.currentUser);
+        const reportedUser = await User.findById(param.reportedUser);
+        if (currentUser.following.includes(param.currentUser)) {
+            currentUser.following.push(param.currentUser);
+        }
+        if (!reportedUser.followers.includes(param.currentUser)) {
+            reportedUser.followers.push(param.currentUser);
+        }
+        await currentUser.save();
+        await reportedUser.save();
+        return reportedUser;
+    } catch (error) {
+        throw error;
+    }
+};
+
+const unFollowUser = async (param) => {
+    try {
+        return 'unfollow';
+    } catch (error) {
+        throw error;
+    }
+};
+
+const reportUser = async (param) => {
+    try {
+        return 'report';
+    } catch (error) {
+        throw error;
+    }
+};
+
+const unReportUser = async (param) => {
+    try {
+        return 'unreport';
+    } catch (error) {
+        throw error;
+    }
+};
+
 module.exports = {
     registerUser,
     loginUser,
     updateUser,
     updatePassword,
+    getUserById,
+    followUser,
+    unFollowUser,
+    reportUser,
+    unReportUser,
 };

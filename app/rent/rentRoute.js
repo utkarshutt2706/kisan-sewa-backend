@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.post('', rentController.setItemForRent);
 router.get('', rentController.getItemsForRent);
-router.get(':id', rentController.getItemById);
+router.get('/:id', rentController.getItemById);
 
 module.exports = router;

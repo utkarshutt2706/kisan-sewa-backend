@@ -23,9 +23,8 @@ const getItemsForRent = (req, resp, next) => {
 };
 
 const getItemById = (req, resp, next) => {
-    console.log(req.params);
     rentService
-        .getItemById(id)
+        .getItemById(req.params.id)
         .then((data) => {
             resp.json(data);
         })

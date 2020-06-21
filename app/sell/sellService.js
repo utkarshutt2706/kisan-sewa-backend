@@ -34,9 +34,17 @@ const getItemsForSale = async () => {
 const getItemById = async (id) => {
     try {
         const sell = await Sell.findById(id);
-        return sell;
+        if (sell) {
+            return sell;
+        } else {
+            throw { message: 'null' };
+        }
     } catch (error) {
-        throw error;
+        if (error.name === 'CastError') {
+            throw { message: 'invalidUrl' };
+        } else {
+            throw error;
+        }
     }
 };
 

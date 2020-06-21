@@ -11,6 +11,9 @@ const userSchema = mongoose.Schema({
     address: { type: String, required: true },
     isVerified: { type: Boolean, required: true, default: false },
     picture: { type: String, required: true, default: defaultValue.profile },
+    followers: { type: [String] },
+    following: { type: [String] },
+    reportedBy: { type: [String] },
 });
 
 module.exports = mongoose.model('User', userSchema);
