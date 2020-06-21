@@ -179,17 +179,29 @@ const getUserById = async (id) => {
 
 const followUser = async (param) => {
     try {
-        const currentUser = await User.findById(param.currentUser);
-        const reportedUser = await User.findById(param.reportedUser);
-        if (currentUser.following.includes(param.currentUser)) {
-            currentUser.following.push(param.currentUser);
+        if (param.currentUser !== param.reportedUser) {
+            const currentUser = await User.findById(param.currentUser);
+            const reportedUser = await User.findById(param.reportedUser);
+            if (!currentUser.following.includes(param.currentUser)) {
+                currentUser.following.push(param.currentUser);
+            }
+            if (!reportedUser.followers.includes(param.currentUser)) {
+                reportedUser.followers.push(param.currentUser);
+            }
+            await currentUser.save();
+            await reportedUser.save();
+            return reportedUser;
+        } else {
+            const currentUser = await User.findById(param.currentUser);
+            if (!currentUser.following.includes(param.currentUser)) {
+                currentUser.following.push(param.currentUser);
+            }
+            if (!currentUser.followers.includes(param.currentUser)) {
+                currentUser.followers.push(param.currentUser);
+            }
+            await currentUser.save();
+            return currentUser;
         }
-        if (!reportedUser.followers.includes(param.currentUser)) {
-            reportedUser.followers.push(param.currentUser);
-        }
-        await currentUser.save();
-        await reportedUser.save();
-        return reportedUser;
     } catch (error) {
         throw error;
     }
@@ -197,7 +209,33 @@ const followUser = async (param) => {
 
 const unFollowUser = async (param) => {
     try {
-        return 'unfollow';
+        if(param.currentUser !== param.reportedUser) {
+            const currentUser = await User.findById(param.currentUser);
+            const reportedUser = await User.findById(param.reportedUser);
+            if (currentUser.following.includes(param.currentUser)) {
+                const index = currentUser.following.indexOf(param.currentUser);
+                currentUser.following.splice(index, 1);
+            }
+            if (reportedUser.followers.includes(param.currentUser)) {
+                const index = reportedUser.followers.indexOf(param.currentUser);
+                reportedUser.followers.splice(index, 1);
+            }
+            await currentUser.save();
+            await reportedUser.save();
+            return reportedUser;
+        } else {
+            const currentUser = await User.findById(param.currentUser);
+            if (currentUser.following.includes(param.currentUser)) {
+                const index = currentUser.following.indexOf(param.currentUser);
+                currentUser.following.splice(index, 1);
+            }
+            if (currentUser.followers.includes(param.currentUser)) {
+                const index = currentUser.followers.indexOf(param.currentUser);
+                currentUser.followers.splice(index, 1);
+            }
+            await currentUser.save();
+            return currentUser;
+        }
     } catch (error) {
         throw error;
     }
@@ -205,7 +243,12 @@ const unFollowUser = async (param) => {
 
 const reportUser = async (param) => {
     try {
-        return 'report';
+        const reportedUser = await User.findById(param.reportedUser);
+        if (!reportedUser.reportedBy.includes(param.currentUser)) {
+            reportedUser.reportedBy.push(param.currentUser);
+        }
+        await reportedUser.save();
+        return reportedUser;
     } catch (error) {
         throw error;
     }
@@ -213,7 +256,13 @@ const reportUser = async (param) => {
 
 const unReportUser = async (param) => {
     try {
-        return 'unreport';
+        const reportedUser = await User.findById(param.reportedUser);
+        if (reportedUser.reportedBy.includes(param.currentUser)) {
+            const index = reportedUser.reportedBy.indexOf(param.currentUser);
+            reportedUser.reportedBy.splice(index, 1);
+        }
+        await reportedUser.save();
+        return reportedUser;
     } catch (error) {
         throw error;
     }
