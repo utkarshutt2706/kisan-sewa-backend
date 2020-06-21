@@ -180,26 +180,16 @@ const getUserById = async (id) => {
 const followUser = async (param) => {
     try {
         if (param.currentUser !== param.reportedUser) {
-            console.log('if');
             const currentUser = await User.findById(param.currentUser);
-            console.log(1);
             const reportedUser = await User.findById(param.reportedUser);
-            console.log(2);
             if (!currentUser.following.includes(param.currentUser)) {
-                console.log(3);
-                console.log(currentUser);
                 currentUser.following.push(param.reportedUser);
-                console.log(currentUser);
             }
             if (!reportedUser.followers.includes(param.currentUser)) {
-                console.log(4);
                 reportedUser.followers.push(param.currentUser);
             }
-            console.log(5);
             await currentUser.save();
-            console.log(6);
             await reportedUser.save();
-            console.log(7);
             return reportedUser;
         } else {
             const currentUser = await User.findById(param.currentUser);
