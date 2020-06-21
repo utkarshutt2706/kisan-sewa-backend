@@ -6,7 +6,7 @@ const router = express.Router();
 
 //routes
 router.get('/nearby', boothController.findNearBy);
-router.post('/update', boothController.updateBooth);
-router.post('/password', boothController.updatePassword);
+router.put('/update', boothController.updateBooth);
+router.put('/password', boothController.updatePassword);
 
 module.exports = router;
